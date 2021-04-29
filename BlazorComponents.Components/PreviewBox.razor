@@ -1,0 +1,48 @@
+﻿@*
+    Preview Box
+*@
+
+@if (_isSearch)
+{
+    <div class="preview-box">
+        <h2>@Title</h2>
+
+        @ChildContent
+
+        <div class="clearfix" />
+    </div>
+}
+
+@code {
+
+    [Parameter] public string Title { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private bool _isSearch = true;
+
+    private string _searchText;
+
+    [Parameter]
+    public string SearchText
+    {
+        get => _searchText ?? string.Empty;
+        set
+        {
+            if (SearchText != value) _searchText = value;
+            SearchTextChanged.InvokeAsync(value);
+
+            if (string.IsNullOrWhiteSpace(SearchText))
+            {
+                _isSearch = true;
+            }
+            else
+            {
+                if (Title.ToLower().Replace(" ", "").Contains(SearchText.ToLower().Replace(" ", ""))) { _isSearch = true; }
+                else { _isSearch = false; }
+            }
+        }
+    }
+
+    [Parameter] public EventCallback<string> SearchTextChanged { get; set; }
+
+}

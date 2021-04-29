@@ -1,0 +1,60 @@
+﻿@*
+    Modal
+*@
+
+@inject IJSRuntime JsRuntime;
+
+@if (!Hidden)
+{
+    <div class="@($"modal-box {CssClass}")">
+
+        @if (CloseOnClickOut)
+        {
+            <div class="bg-overlay" @onclick="(() => ToggleModal())" />
+        }
+        else
+        {
+            <div class="bg-overlay" />
+        }
+
+    <SectionBox CssClass="section-modal">
+        @if (!string.IsNullOrWhiteSpace(Title))
+        {
+            <h3>@Title</h3>
+        }
+
+        @ChildContent
+
+        @if (CloseOnClickButton)
+        {
+            <div class="modal-btn-close" @onclick="(() => ToggleModal())" />
+        }
+    </SectionBox>
+
+    </div>
+}
+
+@code {
+
+    private ElementReference ElemRef = new ElementReference("modal-" + Guid.NewGuid());
+
+    private bool Hidden { get; set; } = true;
+
+    [Parameter] public string Title { get; set; }
+    [Parameter] public bool CloseOnClickOut { get; set; } = true;
+    [Parameter] public bool CloseOnClickButton { get; set; } = true;
+
+    [Parameter] public string CssClass { get; set; }
+
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    [Parameter] public EventCallback OnClose { get; set; } = new EventCallback();
+
+    public async Task ToggleModal()
+    {
+        Hidden = !Hidden;
+
+        await JsRuntime.InvokeVoidAsync("lockScrollBody", Hidden);
+    }
+
+}

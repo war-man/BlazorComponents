@@ -1,0 +1,41 @@
+﻿@*
+    Radio Button
+*@
+
+<fieldset class="field-radio display-@_display.ToLower()">
+
+    <input type="radio" id="@ElemRef.Id" name="@_name" checked="@_checked" value="@Value"
+           @attributes="AdditionalAttributes"
+           @ref="ElemRef" />
+
+    @if (!string.IsNullOrWhiteSpace(Label))
+    {
+        <label for="@ElemRef.Id">
+            @Label&nbsp;
+        </label>
+    }
+
+</fieldset>
+
+@code {
+
+    private ElementReference ElemRef = new ElementReference("fieldradiobutton-" + Guid.NewGuid());
+
+    [Parameter] public FieldRadioGroup ContextGroup { get; set; }
+
+    private void OnChangeEvt(ChangeEventArgs args) => ContextGroup.SetValue(Value);
+
+    [Parameter] public string Value { get; set; }
+
+    [Parameter] public string Label { get; set; }
+
+    [Parameter] public bool Checked { get; set; }
+
+    private string _name => ContextGroup.Name;
+    private bool _checked => Checked || Value == ContextGroup.Value;
+    private string _display => ContextGroup.Display;
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IDictionary<string, object> AdditionalAttributes { get; set; }
+
+}

@@ -1,0 +1,33 @@
+﻿@*
+    Radio Group
+*@
+
+@ChildContent(this)
+
+@code {
+
+    [Parameter] public RenderFragment<FieldRadioGroup> ChildContent { get; set; }
+
+    private ElementReference ElemRef = new ElementReference("fieldradiogroup-" + Guid.NewGuid());
+
+    public string Name => ElemRef.Id;
+
+    private string _value;
+
+    [Parameter]
+    public string Value
+    {
+        get => _value ?? string.Empty;
+        set { if (Value != value) _value = value; ValueChanged.InvokeAsync(value); }
+    }
+
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
+
+    public void SetValue(string val) => Value = val;
+
+    /// <summary>
+    /// block, inline, inline-block, ...
+    /// </summary>
+    [Parameter] public string Display { get; set; } = "block";
+
+}

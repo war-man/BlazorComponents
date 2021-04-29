@@ -1,0 +1,741 @@
+﻿// ====================================================================
+// Imports
+
+@import '_essentials.scss';
+@import 'fonts/FontAwesome/css/all.min.css';
+
+// ====================================================================
+// General
+
+html, body {
+  font-family: $font-montserrat;
+
+  &.scroll-locked {
+    overflow: hidden;
+  }
+}
+
+*[class^=col-]{
+  float: left;
+}
+
+h1 {
+  padding: 20px;
+  font-size: 26px;
+  margin-bottom: 0;
+
+  i[class^=fa] {
+    font-size: .9em;
+  }
+}
+
+a {
+  &, &:hover, &:visited, &:active {
+    text-decoration: none;
+    color: lighten($color-purple, 10%);
+  }
+
+  &:hover {
+    color: desaturate(lighten($color-purple, 30%), 20%);
+  }
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+app {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-row {
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.main {
+  flex: 1;
+  padding-top: $topbar-height;
+  background-color: $color-gray-light;
+  margin-bottom: 14px;
+
+  .content {
+    padding: 0 !important;
+  }
+
+  .top-row {
+    background-color: $color-gray-light;
+    border-bottom: 1px solid #d6d5d5;
+    justify-content: flex-end;
+
+    & > a, .main .top-row .btn-link {
+      white-space: nowrap;
+      margin-left: 1.5rem;
+    }
+
+    a:first-child {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.sidebar {
+  background-image: linear-gradient(180deg, $color-purple 0%, darken($color-purple, 10%) 70%);
+
+  .top-row {
+    background-color: rgba(0,0,0,0.4);
+  }
+
+  .navbar-brand {
+    font-size: 1.1rem;
+  }
+
+  .oi {
+    width: 2rem;
+    font-size: 1.1rem;
+    vertical-align: text-top;
+    top: -2px;
+  }
+
+  .nav-item {
+    font-size: 0.9rem;
+    padding-bottom: 0.5rem;
+
+    &:first-of-type {
+      padding-top: 1rem;
+    }
+
+    &:last-of-type {
+      padding-bottom: 1rem;
+    }
+
+    a {
+      color: #d7d7d7;
+      border-radius: 4px;
+      height: 3rem;
+      display: flex;
+      align-items: center;
+      line-height: 3rem;
+
+      &.active {
+        background-color: rgba(255,255,255,0.25);
+        color: white;
+      }
+
+      &:hover {
+        background-color: rgba(255,255,255,0.1);
+        color: white;
+      }
+    }
+  }
+
+  .navbar-toggler {
+    background-color: rgba(255, 255, 255, 0.1);
+
+    @include mobile {
+      position: absolute;
+      z-index: 50;
+      top: 15px;
+      right: 15px;
+      color: white;
+      padding: 10px 15px;
+    }
+  }
+}
+
+.valid.modified:not([type=checkbox]) {
+  outline: 1px solid #26b050;
+}
+
+.invalid {
+  outline: 1px solid red;
+}
+
+.validation-message {
+  color: red;
+}
+
+#blazor-error-ui {
+  background: lightyellow;
+  bottom: 0;
+  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+  display: none;
+  left: 0;
+  padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+
+  .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .main .top-row {
+    display: none;
+
+    &:not(.auth) {
+      display: none;
+    }
+
+    &.auth {
+      justify-content: space-between;
+    }
+
+    &a, .main .top-row .btn-link {
+      margin-left: 0;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  app {
+    flex-direction: row;
+  }
+
+  .sidebar {
+    width: $sidebar-width;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    padding-top: $topbar-height;
+  }
+
+  .main .top-row {
+    position: sticky;
+    top: 0;
+  }
+
+  .main > div {
+    padding-left: 2rem !important;
+    padding-right: 1.5rem !important;
+  }
+
+  .navbar-toggler {
+    display: none;
+  }
+
+  .sidebar .collapse {
+    display: block;
+  }
+}
+
+.top-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: block;
+  z-index: 10;
+  background: #111;
+  padding: 5px 10px;
+  height: $topbar-height;
+  overflow: hidden;
+
+  @include mobile {
+    position: static;
+  }
+
+  .top-title {
+    width: $sidebar-width;
+    text-align: center;
+    font-family: $font-montserrat;
+
+    @include desktop {
+      float: left;
+    }
+
+    @include mobile {
+      width: auto;
+      text-align: left;
+    }
+
+    a {
+      color: white;
+      text-transform: uppercase;
+      padding-top: 15px;
+      font-size: 18px;
+      display: block;
+    }
+  }
+
+  .top-buttons {
+    float: right;
+    list-style: none;
+    padding-top: 3px;
+
+    @include mobile {
+      display: none;
+    }
+
+    li {
+      float: left;
+      padding: 10px;
+
+      a {
+        color: white;
+        padding: 5px;
+        font-size: 22px;
+        opacity: .8;
+        transition: $transition;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+ul.nav {
+  li.nav-item {
+    i[class^=fa] {
+      width: 20px;
+      margin-right: 10px;
+    }
+  }
+}
+
+::selection {
+  color: white;
+  background: #111;
+}
+
+.highlight {
+  color: $color-purple;
+  font-weight: 600;
+}
+
+.purple {
+  color: $color-purple;
+}
+
+.display-block {
+  display: block;
+}
+
+.display-inline {
+  display: inline;
+}
+
+.display-inline-block {
+  display: inline-block;
+}
+
+.strong {
+  font-weight: 600;
+}
+
+// ====================================================================
+// Buttons
+
+.btn-component {
+  font-family: $font-lato;
+  display: inline-block;
+  text-align: center;
+  font-weight: normal;
+  vertical-align: middle;
+  text-transform: uppercase;
+  line-height: 1.4;
+  font-size: 12px;
+  padding: 9px 16px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &.btn-component-red {
+    @include button($color-red);
+  }
+
+  &.btn-component-pink {
+    @include button($color-pink);
+  }
+
+  &.btn-component-blue {
+    @include button($color-blue);
+  }
+
+  &.btn-component-green {
+    @include button($color-green);
+  }
+
+  &.btn-component-orange {
+    @include button($color-orange);
+  }
+
+  &.btn-component-yellow {
+    @include button($color-yellow);
+  }
+
+  i[class^=fa] {
+    margin-right: 5px;
+    font-size: 1.1em;
+  }
+}
+
+// ====================================================================
+// Sections
+
+.section-content {
+  padding: 15px;
+  padding-top: 0;
+  float: left;
+
+  .section-box {
+    background-color: white;
+    border-radius: $border-radius;
+    padding: 15px;
+    // box-shadow: -1px 2px 10px rgba(black, .08);
+  }
+}
+
+// ====================================================================
+// <code>
+
+code {
+  color: #111;
+  background: rgba(0,0,0,.1);
+  padding: 15px;
+  display: block;
+  border-radius: $border-radius;
+  margin-bottom: 15px;
+}
+
+// ====================================================================
+// Inputs
+
+fieldset[class*=field-] {
+  label {
+    font-size: 10px;
+    color: lighten(desaturate($color-purple, 60%), 40%);
+    text-transform: uppercase;
+    margin-bottom: 3px;
+    display: block;
+    width: 100%;
+
+    &.purple {
+      color: $color-purple;
+    }
+  }
+
+  input, textarea {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    padding: 8px 10px;
+    border-radius: 0;
+    border: 1px solid #d2d2d2;
+
+    &:focus {
+      outline: none;
+      border-color: lighten(desaturate($color-purple, 50%), 50%);
+    }
+  }
+
+  textarea {
+    min-width: 100%;
+    width: 100%;
+    max-width: 100%;
+    min-height: 100px;
+    height: 150px;
+    max-height: 250px;
+  }
+
+  &.field-checkbox, &.field-radio {
+    width: 220px;
+
+    &.display-block {
+      margin-bottom: 5px;
+    }
+
+    input {
+      width: 15%;
+      min-width: unset;
+      float: left;
+      height: 16px;
+      margin-top: 2px;
+    }
+
+    label {
+      // float: right;
+      width: 85%;
+      font-size: 14px;
+      text-transform: none;
+      color: #111;
+      margin: 0;
+      padding-left: 10px;
+    }
+  }
+
+  &.field-checkswitch {
+    .f-switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 22px;
+      margin-bottom: 0;
+
+      .switch {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .3s;
+        transition: .3s;
+        border-radius: 30px;
+
+        &:before {
+          position: absolute;
+          content: "";
+          height: 16px;
+          width: 16px;
+          left: 5px;
+          top: 3px;
+          background-color: #fff;
+          -webkit-transition: .4s;
+          transition: .4s;
+          border-radius: 30px;
+        }
+      }
+
+      input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+
+        &:checked + .switch {
+          background-color: $color-green;
+
+          &:before {
+            -webkit-transform: translateX(24px);
+            -ms-transform: translateX(24px);
+            transform: translateX(24px);
+          }
+        }
+
+        &:focus + .switch {
+          box-shadow: 0 0 1px $color-green;
+        }
+      }
+
+      & + .f-switch-label {
+        vertical-align: middle;
+        margin-left: 10px;
+        display: inline-block;
+        color: #111;
+        margin-bottom: 0;
+        cursor: pointer;
+        width: auto;
+        padding-top: 10px;
+      }
+    }
+
+    display: inline-block;
+    float: left;
+
+    &:not(:last-child) {
+      margin-right: 30px;
+    }
+  }
+
+  &.field-search {
+    input {
+      padding-left: 40px;
+    }
+
+    &:after {
+      @include fa-content("\f002");
+      opacity: .4;
+      position: absolute;
+      left: 28px;
+      top: 9px;
+      color: $color-purple;
+      cursor: pointer;
+    }
+  }
+}
+
+// ====================================================================
+// Box de exemplo
+
+.preview-box {
+  position: relative;
+  border-bottom: 1px solid #fff;
+  border-top: 1px solid #d8d8d8;
+  padding: 20px 0 15px 0;
+
+  &:after {
+    content: '//';
+    position: absolute;
+    left: calc(50% - (35px/2));
+    letter-spacing: 2px;
+    bottom: -15px;
+    font-size: 18px;
+    background-color: #f1f1f1;
+    padding: 0 10px;
+    z-index: 9;
+    color: rgba($color-purple, .4);
+  }
+
+  &:last-child:after{
+    display: none;
+  }
+
+  h2 {
+    font-size: 18px;
+    color: $color-purple;
+    padding: 0 15px;
+    margin-bottom: 15px;
+    font-weight: 600;
+
+    &:before {
+      content: '< ';
+      opacity: 600;
+      font-weight: 400;
+    }
+
+    &:after {
+      content: '  />';
+      opacity: 600;
+      font-weight: 400;
+    }
+  }
+}
+
+// ====================================================================
+// Modal
+
+.modal-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+
+  .bg-overlay {
+    background: rgba(black, .4);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+  .section-modal {
+    @include desktop {
+      display: flex;
+      align-items: center;
+      -webkit-flex-grow: 1;
+      flex-grow: 1;
+    }
+
+    & > .section-box {
+      width: calc(100% / 2.5);
+      display: block;
+      margin: 20px auto;
+      overflow-x: hidden;
+      overflow-y: auto;
+      max-height: 90vh;
+      padding: 20px 10px;
+      z-index: 2;
+      position: relative;
+
+      @include desktop {
+        -webkit-animation: key-pulse .4s;
+        animation: key-pulse .4s;
+      }
+
+      @include mobile {
+        width: 100% !important;
+        max-height: calc(100vh - 40px);
+      }
+
+      h3 {
+        font-size: 16px;
+        border-bottom: 1px solid $color-gray-light;
+        padding: 0 0 10px 10px;
+        margin: -5px 0 15px 0;
+        color: $color-purple;
+      }
+
+      .modal-btn-close {
+        transition: $transition;
+        opacity: .6;
+
+        &:after {
+          content: 'x';
+          position: absolute;
+          padding: 6px 15px;
+          top: 0;
+          right: 0;
+          cursor: pointer;
+          font-size: 1.2em;
+        }
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+// ====================================================================
+// Tabs
+
+.tab-group {
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 20px;
+
+    li {
+      display: inline-block;
+      padding-right: 5px;
+
+      &:last-child {
+        padding-right: 0;
+      }
+
+      a {
+        text-transform: uppercase;
+        font-size: 12px;
+        border: 1px solid $color-blue;
+        background-color: $color-blue;
+        color: white !important;
+        padding: 8px 13px;
+        cursor: pointer;
+      }
+
+      &.active {
+        a, a:hover {
+          background-color: white;
+          color: $color-blue !important;
+          cursor: default;
+        }
+      }
+    }
+  }
+}
+
+// ====================================================================

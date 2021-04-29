@@ -1,0 +1,49 @@
+﻿@page "/data"
+@inherits DataModel
+@using BlazorComponents.Components;
+
+<TitlePage>Data</TitlePage>
+
+<div class="col-md-12 mb-3">
+    <fieldset class="field-input field-search">
+        <input value="@SearchText" @onchange="OnSearch" placeholder="Pesquisar componente..." type="text" />
+    </fieldset>
+</div>
+
+<div class="clearfix" />
+
+<PreviewBox Title="DataTable" SearchText="@SearchText">
+    <SectionBox>
+        <DataTable T="ExampleItem" Items="ExampleItems" Context="item">
+            <DataTableHeader>
+                <th><DisplayName Model="ExampleItem" Name="@nameof(ExampleItem.Id)" /></th>
+                <th><DisplayName Model="ExampleItem" Name="@nameof(ExampleItem.Name)" /></th>
+                <th><DisplayName Model="ExampleItem" Name="@nameof(ExampleItem.CreatedOn)" /></th>
+            </DataTableHeader>
+
+            <DataTableBody>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.CreatedOn.ToString("dd/MM/yyyy")</td>
+            </DataTableBody>
+        </DataTable>
+    </SectionBox>
+
+    <CodeBox>
+        &lt;DataTable T="ExampleItem" Items="ExampleItems" Context="item"&gt; <br />
+
+        &nbsp; &nbsp; &lt;DataTableHeader&gt; <br />
+        &nbsp; &nbsp; &nbsp; &nbsp; &lt;th&gt;&lt;DisplayName Model="ExampleItem" Name="&#64;nameof(ExampleItem.Id)" /&gt;&lt;/th&gt; <br />
+        &nbsp; &nbsp; &nbsp; &nbsp; &lt;th&gt;&lt;DisplayName Model="ExampleItem" Name="&#64;nameof(ExampleItem.Name)" /&gt;&lt;/th&gt; <br />
+        &nbsp; &nbsp; &nbsp; &nbsp; &lt;th&gt;&lt;DisplayName Model="ExampleItem" Name="&#64;nameof(ExampleItem.CreatedOn)" /&gt;&lt;/th&gt; <br />
+        &nbsp; &nbsp; &lt;/DataTableHeader&gt; <br /><br />
+
+        &nbsp; &nbsp; &lt;DataTableHeader&gt; <br />
+        &nbsp; &nbsp; &nbsp; &nbsp; &lt;td&gt;&#64;item.Id&lt;/td&gt; <br />
+        &nbsp; &nbsp; &nbsp; &nbsp; &lt;td&gt;&#64;item.Name&lt;/td&gt; <br />
+        &nbsp; &nbsp; &nbsp; &nbsp; &lt;td&gt;&#64;item.CreatedOn.ToString("dd/MM/yyyy")&lt;/td&gt; <br />
+        &nbsp; &nbsp; &lt;/DataTableHeader&gt; <br />
+
+        &lt;/DataTable&gt;
+    </CodeBox>
+</PreviewBox>

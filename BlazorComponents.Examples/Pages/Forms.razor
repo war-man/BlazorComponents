@@ -1,0 +1,107 @@
+﻿@page "/forms"
+@inherits FormsModel
+@using BlazorComponents.Components;
+
+<TitlePage>Forms</TitlePage>
+
+<div class="col-md-12 mb-3">
+    <fieldset class="field-input field-search">
+        <input value="@SearchText" @onchange="OnSearch" placeholder="Pesquisar componente..." type="text" />
+    </fieldset>
+</div>
+
+<div class="clearfix" />
+
+<PreviewBox Title="FieldText" SearchText="@SearchText">
+    <SectionBox HasRow="true">
+        <FieldText Col="3" Model="PersonExample" Label="@nameof(PersonObj.Name)" Value="@PersonObj.Name" />
+        <FieldText Col="3" Model="PersonExample" Label="@nameof(PersonObj.Surname)" Value="@PersonObj.Surname" />
+    </SectionBox>
+
+    <CodeBox>
+        &lt;FieldText Col="3" Model="PersonExample" Label="&#64;nameof(PersonObj.Name)" Value="&#64;PersonObj.Name" /&gt;<br />
+        &lt;FieldText Col="3" Model="PersonExample" Label="&#64;nameof(PersonObj.Surname)" Value="&#64;PersonObj.Surname" /&gt;
+    </CodeBox>
+</PreviewBox>
+
+<PreviewBox Title="FieldNumber" SearchText="@SearchText">
+    <SectionBox HasRow="true">
+        <FieldNumber Col="2" Model="PersonExample" ValueType="int" Label="@nameof(PersonObj.Age)" Value="@PersonObj.Age" />
+    </SectionBox>
+
+    <CodeBox>
+        &lt;FieldNumber Col="2" Model="PersonExample" ValueType="int" Label="&#64;nameof(PersonObj.Age)" Value="&#64;PersonObj.Age" /&gt;
+    </CodeBox>
+</PreviewBox>
+
+<PreviewBox Title="FieldDate" SearchText="@SearchText">
+    <SectionBox HasRow="true">
+        <FieldDate Col="3" Model="PersonExample" ValueType="DateTime" Label="@nameof(PersonObj.Birthday)" Value="@PersonObj.Birthday" />
+    </SectionBox>
+
+    <CodeBox>
+        &lt;FieldDate Col="3" Model="PersonExample" ValueType="DateTime" Label="&#64;nameof(PersonObj.Birthday)" Value="&#64;PersonObj.Birthday" /&gt;
+    </CodeBox>
+</PreviewBox>
+
+<PreviewBox Title="FieldSelect" SearchText="@SearchText">
+    <SectionBox HasRow="true">
+        <FieldSelect Col="4" Model="PersonExample" Label="@nameof(PersonObj.FavoriteColor)" Items="Colors" Value="@PersonObj.FavoriteColor" />
+    </SectionBox>
+
+    <CodeBox>
+        &lt;FieldSelect Col="4" Model="PersonExample" Label="&#64;nameof(PersonObj.FavoriteColor)" Items="Colors" Value="&#64;PersonObj.FavoriteColor" /&gt;
+    </CodeBox>
+</PreviewBox>
+
+<PreviewBox Title="FieldCheckSwitch" SearchText="@SearchText">
+    <SectionBox>
+        <FieldCheckSwitch Model="PersonExample" Label="@nameof(PersonObj.IsProgrammer)" Value="@PersonObj.IsProgrammer" />
+        <FieldCheckSwitch Model="PersonExample" Label="@nameof(PersonObj.IsActive)" Value="@PersonObj.IsActive" />
+    </SectionBox>
+
+    <CodeBox>
+        &lt;FieldCheckSwitch Model="PersonExample" Label="&#64;nameof(PersonObj.IsProgrammer)" Value="&#64;PersonObj.IsProgrammer" /&gt; <br />
+        &lt;FieldCheckSwitch Model="PersonExample" Label="&#64;nameof(PersonObj.IsActive)" Value="&#64;PersonObj.IsActive" /&gt;
+    </CodeBox>
+</PreviewBox>
+
+<PreviewBox Title="FieldCheckbox" SearchText="@SearchText">
+    <SectionBox>
+        <FieldCheckbox Model="PersonExample" Label="@nameof(PersonObj.IsProgrammer)" Display="inline-block" Value="@PersonObj.IsProgrammer" />
+        <FieldCheckbox Model="PersonExample" Label="@nameof(PersonObj.IsActive)" Display="inline-block" Value="@PersonObj.IsActive" />
+    </SectionBox>
+
+    <CodeBox>
+        &lt;FieldCheckbox Model="PersonExample" Label="&#64;nameof(PersonObj.IsProgrammer)" Display="inline-block" Value="&#64;PersonObj.IsProgrammer" /&gt;<br />
+        &lt;FieldCheckbox Model="PersonExample" Label="&#64;nameof(PersonObj.IsActive)" Display="inline-block" Value="&#64;PersonObj.IsActive" /&gt;
+    </CodeBox>
+</PreviewBox>
+
+<PreviewBox Title="FieldRadioGroup" SearchText="@SearchText">
+    <SectionBox>
+        <FieldRadioGroup Context="r" Value="@PersonObj.Gender" Display="block">
+            <FieldRadioButton ContextGroup="@r" Label="Masculino" Value="m" />
+            <FieldRadioButton ContextGroup="@r" Label="Feminino" Value="f" />
+            <FieldRadioButton ContextGroup="@r" Label="Outro" Value="o" />
+        </FieldRadioGroup>
+    </SectionBox>
+
+    <CodeBox>
+        &lt;FieldRadioGroup Context="r" Value="Obj.Gender" Display="block"&gt;<br />
+        &nbsp; &nbsp; &lt;FieldRadioButton ContextGroup="&#64;r" Label="Masculino" Value="m" /&gt;<br />
+        &nbsp; &nbsp; &lt;FieldRadioButton ContextGroup="&#64;r" Label="Feminino" Value="f" /&gt;<br />
+        &nbsp; &nbsp; &lt;FieldRadioButton ContextGroup="&#64;r" Label="Outro" Value="o" /&gt;<br />
+        &lt;/FieldRadioGroup&gt;
+    </CodeBox>
+</PreviewBox>
+
+<PreviewBox Title="FieldTextArea" SearchText="@SearchText">
+    <SectionBox HasRow="true">
+        <FieldTextArea Model="PersonExample" Label="@nameof(PersonObj.Description)" Value="@PersonObj.Description" />
+    </SectionBox>
+
+    <CodeBox>
+        &lt;FieldTextArea Model="PersonExample" Label="&#64;nameof(PersonObj.Description)" Value="&#64;PersonObj.Description" /&gt;
+    </CodeBox>
+</PreviewBox>

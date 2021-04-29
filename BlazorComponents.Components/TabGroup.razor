@@ -1,0 +1,37 @@
+﻿@*
+    Tab Group
+*@
+
+<div class="@($"tab-group {CssClass}")">
+    <ul>
+        @ChildContent(this)
+    </ul>
+</div>
+
+<div class="tab-content" style="@_style">
+    @ContentFromTab
+</div>
+
+@code {
+
+    [Parameter] public RenderFragment<TabGroup> ChildContent { get; set; }
+
+    [Parameter] public string CssClass { get; set; }
+
+    [Parameter] public int HeightContent { get; set; }
+
+    public string TabSelected = string.Empty;
+
+    public RenderFragment ContentFromTab { get; set; }
+
+    public Task SetTab((RenderFragment tabContent, string id) tab)
+    {
+        ContentFromTab = tab.tabContent;
+        TabSelected = tab.id;
+
+        return InvokeAsync(StateHasChanged);
+    }
+
+    private string _style => HeightContent > 0 ? $"height: calc(100vh - {HeightContent}px); overflow: auto;" : string.Empty;
+
+}

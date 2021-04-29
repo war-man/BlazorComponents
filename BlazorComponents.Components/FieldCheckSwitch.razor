@@ -1,0 +1,39 @@
+﻿@*
+    Check Switch
+*@
+
+@typeparam Model
+
+<fieldset class="field-checkswitch">
+    <label class="f-switch">
+        <input type="checkbox" id="@ElemRef.Id" checked="@Value" @onchange="(() => ValueChanged.InvokeAsync(!Value))" @ref="ElemRef" />
+        <span class="switch" />
+    </label>
+
+    @if (!string.IsNullOrWhiteSpace(Label))
+    {
+        <label for="@ElemRef.Id" class="f-switch-label">
+            <DisplayName Model="Model" Name="@Label" />
+        </label>
+    }
+
+</fieldset>
+
+@code {
+
+    private ElementReference ElemRef = new ElementReference("fieldcheckswitch-" + Guid.NewGuid());
+
+    private bool _value;
+
+    [Parameter]
+    public bool Value
+    {
+        get => _value;
+        set { if (Value != value) _value = value; ValueChanged.InvokeAsync(value); }
+    }
+
+    [Parameter] public EventCallback<bool> ValueChanged { get; set; }
+
+    [Parameter] public string Label { get; set; }
+
+}

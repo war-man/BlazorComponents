@@ -1,0 +1,101 @@
+﻿@page "/general"
+@inherits GeneralModel
+@using BlazorComponents.Components
+
+<TitlePage>General</TitlePage>
+
+<div class="col-md-12 mb-3">
+    <fieldset class="field-input field-search">
+        <input @bind="SearchText" placeholder="Pesquisar componente..." type="text" />
+    </fieldset>
+</div>
+
+<div class="clearfix" />
+
+<PreviewBox Title="SectionBox" SearchText="@SearchText">
+    <SectionBox Col="12" HasRow="false" HasBox="true">
+        This is a section.
+    </SectionBox>
+
+    <CodeBox>
+        &lt;SectionBox Col="12" HasRow="false" HasBox="true"&gt; <br />
+        &nbsp; &nbsp; This is a section. <br />
+        &lt;/SectionBox&gt;
+    </CodeBox>
+</PreviewBox>
+
+<PreviewBox Title="TabGroup" SearchText="@SearchText">
+    <SectionBox Col="12" HasRow="false" HasBox="true">
+        <TabGroup Context="t">
+            <TabLabel TabContext="@t" Title="Tab 1" Selected="true">
+                Content 1
+            </TabLabel>
+            <TabLabel TabContext="@t" Title="Tab 2">
+                Content 2
+            </TabLabel>
+            <TabLabel TabContext="@t" Title="Tab 3">
+                Content 3
+            </TabLabel>
+        </TabGroup>
+    </SectionBox>
+</PreviewBox>
+
+<PreviewBox Title="Button" SearchText="@SearchText">
+    <SectionBox>
+        <Button Text="red" Color="red" />
+        <Button Text="pink" Color="pink" />
+        <Button Text="blue" Color="blue" />
+        <Button Text="green" Color="green" />
+        <Button Text="orange" Color="orange" />
+        <Button Text="yellow" Color="yellow" CssClass="mr-2" />
+
+        <Button Text="red" Color="red" Outline="true" />
+        <Button Text="pink" Color="pink" Outline="true" />
+        <Button Text="blue" Color="blue" Outline="true" />
+        <Button Text="green" Color="green" Outline="true" />
+        <Button Text="orange" Color="orange" Outline="true" />
+        <Button Text="yellow" Color="yellow" Outline="true" CssClass="mr-2" />
+
+        <Button Text="red" Color="red" Icon="apple-alt" />
+        <Button Text="pink" Color="pink" Icon="heart" />
+        <Button Text="blue" Color="blue" Icon="cloud" />
+        <Button Text="green" Color="green" Icon="leaf" />
+        <Button Text="orange" Color="orange" Icon="carrot" />
+        <Button Text="yellow" Color="yellow" Icon="sun" />
+    </SectionBox>
+
+    <CodeBox>
+        &lt;Button
+        Text="Name"
+        Color="red"
+        Outline="false"
+        Icon="heart"
+        IconRegular="false"
+        CssClass="additional-class"
+        Disabled="false"
+        OnClick="{EventCallback}"
+        /&gt;
+    </CodeBox>
+</PreviewBox>
+
+<PreviewBox Title="Modal" SearchText="@SearchText">
+    <SectionBox>
+        <Button Text="Open modal" Color="pink" OnClick="(() => ModalExample.ToggleModal())" />
+
+        <Modal @ref="ModalExample" Title="Título do Modal" CloseOnClickButton="true" CloseOnClickOut="true">
+            Teste de conteúdo.
+        </Modal>
+    </SectionBox>
+
+    <CodeBox>
+        &lt;Button Text="Open modal" Color="pink" OnClick="(() => ModalObject.ToggleModal())" /&gt;
+        <br /> <br />
+        &lt;Modal &#64;ref="ModalObject" Title="Modal Title" CloseOnClickButton="true" CloseOnClickOut="true"&gt; <br />
+        &nbsp; &nbsp; Content <br />
+        &lt;/Modal&gt;
+        <br /> <br />
+        &#64;code {<br />
+        &nbsp; &nbsp; public Modal ModalObject { get; set; }<br />
+        }
+    </CodeBox>
+</PreviewBox>

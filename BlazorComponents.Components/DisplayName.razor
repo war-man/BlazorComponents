@@ -1,0 +1,35 @@
+﻿@*
+    Get Display Name
+*@
+
+@using System.Reflection
+@using System.ComponentModel.DataAnnotations
+
+@typeparam Model
+
+@_display
+
+@code {
+
+    [Parameter] public string Name { get; set; }
+
+    private string _display => GetDisplayName(Name);
+
+    private string GetDisplayName(string propertyname)
+    {
+        try
+        {
+            MemberInfo myprop = typeof(Model).GetProperty(propertyname) as MemberInfo;
+
+            if (myprop == null) myprop = typeof(Model).GetField(propertyname) as MemberInfo;
+
+            var dd = myprop.GetCustomAttribute(typeof(DisplayAttribute)) as DisplayAttribute;
+            return dd?.Name ?? myprop?.Name ?? Name ?? string.Empty;
+        }
+        catch
+        {
+            return Name ?? string.Empty;
+        }
+    }
+
+}
